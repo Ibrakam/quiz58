@@ -31,9 +31,9 @@ async def get_exact_user(user_id: int):
 # Endpoint для сохранения ответа пользователя
 @user_router.post("/save_user_answer")
 async def save_user_answer(user_id: int, q_id: int,
-                           user_answer: str, level: str):
+                           user_answer: str):
     result = user_answer_db(user_id=user_id, q_id=q_id,
-                            user_answer=user_answer, level=level)
+                            user_answer=user_answer)
     if result:
         return {"status": 1, "message": result}
     return {"status": 0, "message": result}
@@ -41,5 +41,8 @@ async def save_user_answer(user_id: int, q_id: int,
 
 # Endpoint для получения результатов определенного пользователя
 @user_router.get("/get_user_result")
-async def get_user_result():
-    pass  # get_user_result_db()
+async def get_user_result(user_id: int):
+    result = get_user_result_db(user_id)
+    if result:
+        return {"status": 1, "message": result}
+    return {"status": 0, "message": result}

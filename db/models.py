@@ -39,10 +39,10 @@ class UserAnswer(Base):
     question_id = Column(Integer, ForeignKey("questions.id"))
     answer = Column(String)
     correctness = Column(Boolean, default=False)
-    level = Column(String, ForeignKey("users.level"))
+    level = Column(String)
 
-    user_fk = relationship(User, lazy="subquery")
-    question_fk = relationship(Question, lazy="subquery")
+    user_fk = relationship(User, lazy="subquery", foreign_keys=[user_id])
+    question_fk = relationship(Question, lazy="subquery", foreign_keys=[question_id])
 
 
 # Создаем модель Result
@@ -52,6 +52,6 @@ class Result(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     correct_answers = Column(Integer, default=0)
-    level = Column(String, ForeignKey("users.level"))
+    level = Column(String)
 
     user_fk = relationship(User, lazy="subquery")
